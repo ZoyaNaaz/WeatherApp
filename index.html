@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-bar flex">
+        <div class="logo">Weather App</div>
+        <!-- <div class=""> -->
+        <ul class="flex main-links">
+          <li><a href="#">Details</a></li>
+          <li><a href="https://openweathermap.org/">API Docs</a></li>
+          <li><a href="#">Github Repo</a></li>
+        </ul>
+        <!-- </div> -->
+      </nav>
+    </header>
+    <main>
+      <div class="main">
+        <div class="search flex">
+          <input type="search" placeholder="Search City" id="search-bar" />
+          <button id="button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <div class="weather flex">
+          <div class="result flex">
+            <i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>
+            <p class="result-size">
+              29<sup id="celcius">°C</sup><sup id="celcius"> |°F</sup>
+            </p>
+
+            <div class="humidity-wind">
+              <p>Humidity: 94%</p>
+              <p>Wind: 11km/h</p>
+            </div>
+          </div>
+          <div class="status">
+            <p id="weather-p">Weather</p>
+            <p id="day-p">Tuesday</p>
+            <p id="rain-p">Rain</p>
+          </div>
+        </div>
+        <div class="hourly-prediction ">
+          <div class="chart-placeholder">28 27 27 27 27 29 31 31</div>
+          <div class="forecast-card">
+              <div class="day">Tue</div>
+              <div><i class="fa-solid fa-cloud result-size" style="color: #ffd43b; font-size: 20px"></i></div>
+              <div class="temp"><span>29°</span></div>
+          </div>
+           
+        </div>
+        <div class="other flex">
+            <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Pressure<span>: 7</span></p>
+            <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Feels Like<span>: 29°</span></p>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="footer">By Zoya Naaz</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
