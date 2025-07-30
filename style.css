@@ -47,7 +47,7 @@ a:hover{
     /* text-decoration: underline; */
 }
 .main{
-    width: 40vw;
+    width: 35vw;
     height: 78vh;
     margin: 4px 0;
     position: absolute;
@@ -87,60 +87,71 @@ input:focus{
     color: #B2B0E8;
     margin: 30px;
 }
-
-.result-size{
-    color: #dddcf7;
-    font-size: 40px;
-    padding: 0 10px 0 0;
+.temp-row {
+    display: flex;
+    /* align-items: flex-start; */
+    /* gap: 2px; Adjust spacing as needed */
 }
-#celcius{
-    font-size: 16px;
-    /* color: red; */
+.result-size{
+    color: #e4e3ff;
+    font-size: 40px;
+    /* padding: 0 2px 0 0; Reduce right padding */
+    /* line-height: 1; */
+}
+#celcius, #fahrenheit{
+    font-size: 20px;
+    color: #adabf4;
+    cursor: pointer;
+    /* margin-top: -6px;  */
+    /* padding: 0; */
+    /* line-height: 1; */
     
 }
-.humidity-wind{
-    font-size: 14px;
-}
 #weather-p{
-    font-size: 12px;
+    font-size: 16px;
     text-align: right;
     color: #dddcf7;
 }
 #day-p{
-    font-size: 11px;
+    font-size: 15px;
     text-align: right;
 }
 #rain-p{
-    font-size: 10px;
+    font-size: 14px;
     text-align: right;
 }
-.chart-placeholder {
-  height: 60px;
+#city-name-display {
+  height: 25px;
+  width: 70%;
+  display: inline;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #e3cd75;
-  /* color: #fff;/ */
-  margin-bottom: 20px;
-  border-radius: 5px;
+  padding: 8px 25px;
+  border-radius: 12px;
   text-align: center;
-  padding-top: 10px;
-  font-size: 14px;
-}
-.forecast-card{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    color: #fff;
-    margin: 0 20px;
+  font-size: 20px;
 }
 .other{
-    margin: 50px;
+    margin: 90px 0 0 0;
     justify-content: space-around;
     color: #B2B0E8;
     font-size: 14px;
 }
-.other > p > i{
-    font-size: 14px;
+.other-details{
+    padding: 10px;
+    margin: 50px 0;
+}
+.other-details > p{
+    padding: 10px;
+    font-size: 16px;
+}
+
+.other > div > p > i{
+    font-size: 16px;
+    padding: 0 5px 0 0;
 }
 /* footer */
 .footer{

@@ -17,30 +17,27 @@
         <!-- <div class=""> -->
         <ul class="flex main-links">
           <li><a href="#">Details</a></li>
-          <li><a href="https://openweathermap.org/">API Docs</a></li>
-          <li><a href="#">Github Repo</a></li>
+          <li><a href="https://openweathermap.org/" target="_blank">API Docs</a></li>
+          <li><a href="https://github.com/ZoyaNaaz/WeatherApp" target="_blank">Github Repo</a></li>
         </ul>
-        <!-- </div> -->
       </nav>
     </header>
     <main>
       <div class="main">
         <div class="search flex">
-          <input type="search" placeholder="Search City" id="search-bar" />
+          <input type="search" placeholder="Enter City" id="search-bar" />
           <button id="button">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
+        <span id="error-display"></span>
         <div class="weather flex">
           <div class="result flex">
             <i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>
-            <p class="result-size">
-              29<sup id="celcius">°C</sup><sup id="celcius"> |°F</sup>
-            </p>
-
-            <div class="humidity-wind">
-              <p>Humidity: 94%</p>
-              <p>Wind: 11km/h</p>
+            <div class="result-size">
+              <span id="temp-degree"></span>
+              <span id="celcius">°C</span>
+              <span id="fahrenheit"> |°F</span>
             </div>
           </div>
           <div class="status">
@@ -49,18 +46,20 @@
             <p id="rain-p">Rain</p>
           </div>
         </div>
-        <div class="hourly-prediction ">
-          <div class="chart-placeholder">28 27 27 27 27 29 31 31</div>
-          <div class="forecast-card">
-              <div class="day">Tue</div>
-              <div><i class="fa-solid fa-cloud result-size" style="color: #ffd43b; font-size: 20px"></i></div>
-              <div class="temp"><span>29°</span></div>
-          </div>
-           
+        <div class="city-display">
+          <div id="city-name-display">Meerut</div>
         </div>
         <div class="other flex">
-            <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Pressure<span>: 7</span></p>
-            <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Feels Like<span>: 29°</span></p>
+            <div class="other-details">
+               <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Pressure: <span id="pressure"> 7</span></p>
+               <p><i class="fa-solid fa-cloud result-size" style="color: #ffd43b"></i>Humidity: <span id="humidity"> 94</span></p>
+            </div>
+            <div class="other-details">
+               <p><i class="fa-solid fa-wind"></i>Wind: <span id="wind"> 11</span></p>
+               <p><i class="fa-solid fa-temperature-half"></i>Feels Like: <span id="feels-like"> 29°</span></p>
+            </div>
+        </div>
+              
         </div>
       </div>
     </main>
