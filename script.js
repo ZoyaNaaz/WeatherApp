@@ -1,52 +1,62 @@
+
 const apiKey = "f96cb66ac772c8720b57f73e4dfd03ba"
 
-document.getElementById('button').addEventListener('click', (e)=>{
+document.getElementById('button').addEventListener('click', (e) => {
     e.preventDefault()
+    //error display hide
+    document.getElementById('error-display').innerHTML = "";
+    document.getElementById('error-display').style.display = "none"; // Show error display if input is empty
+    document.getElementById('error-display').classList.remove('error-display')
+    document.querySelector(".city-display").classList.remove('shift-below');
+    document.querySelector(".other").classList.remove('shift-above');
     const cityName = document.getElementById('search-bar').value;
-    if(cityName) {  
+    if (cityName) {
         getGeoCode(cityName);
-        document.getElementById('search-bar').value = ''; // Clear the input field after search
+       
     } else {
         console.log("Please enter a city name");
+        document.getElementById('error-display').innerHTML = "Please enter a city name";
+        document.getElementById('error-display').style.display = "block"; // Show error display if input is empty
+        document.getElementById('error-display').classList.add('error-display') // Show error display if input is empty
     }
 })
-async function getGeoCode(city_name){
-    const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city_name}&limit=1&appid=${apiKey}`);
+async function getGeoCode(city_name) {
+    const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city_name}&limit=5&appid=${apiKey}`);
     const data = await response.json()
-
-   if(data.length > 0) {
-        const lat = data[0].lat;
-        const lon = data[0].lon;
-        // console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+    // console.log(data);
+    //find an exact match (case-insensitive)
+    const city = data.find(
+        place => place.name.toLowerCase() === city_name.toLowerCase()
+    );
+    // console.log(city);
+    if (city) {
+        const latitude = city.lat;
+        const longitude = city.lon;
         document.getElementById('error-display').style.display = "none"; // Hide error display if city is found
-        getWeather(lat, lon);
-    }   
+        getWeather(latitude, longitude);
+        document.querySelector("#city-name-display").innerHTML = city.name
+    }
     else {
-        document.getElementById('error-display').style.display = "block"; // Show error display if city is not found
+        document.getElementById('error-display').style.display = "block";
         document.getElementById('error-display').innerHTML = "City not found. Please try again.";
-        document.getElementById('error-display').style.color = "#ecaeaeff";
-        document.getElementById('error-display').style.fontSize = "12px";
-        document.getElementById('error-display').style.marginTop = "5px";
-        document.getElementById('error-display').style.textAlign = "center";
-        document.getElementById('error-display').style.transition = "2s ease-in";
-
-        console.log("City not found");
+        document.getElementById('error-display').classList.add('error-display')
+        document.querySelector(".city-display").classList.add('shift-below');
+        document.querySelector(".other").classList.add('shift-above');
+        // console.log("City not found");
     }
 }
-
-async function getWeather(lat, lon){
+let tempCelsius = null;
+async function getWeather(lat, lon) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`)
     const data = await response.json()
-    const tempCelsius = data.main.temp - 273.15; // Convert Kelvin to Celsius
-    console.log(Math.round(tempCelsius) + "°C");
-    console.log(data);
+    // console.log(data);
+    tempCelsius = data.main.temp - 273.15; // Convert Kelvin to Celsius
     // create date
     const timeStamp = data.dt;
     const date = new Date(timeStamp * 1000);
     const dayName = date.toLocaleString('en-IN', { weekday: 'long' });
-    
+    //displaying API data
     document.querySelector("#temp-degree").innerHTML = Math.round(tempCelsius)
-    document.querySelector("#city-name-display").innerHTML = data.name
     document.getElementById("humidity").innerHTML = data.main.humidity;
     document.getElementById("wind").innerHTML = data.wind.speed;
     document.getElementById("weather-p").innerHTML = data.weather[0].description;
@@ -54,36 +64,56 @@ async function getWeather(lat, lon){
     document.getElementById("rain-p").innerHTML = data.weather[0].main;
     document.getElementById("pressure").innerHTML = data.main.pressure;
     document.getElementById("feels-like").innerHTML = `${Math.floor(data.main.feels_like - 273.15)}°C`; // Convert Kelvin to Celsius
-    //convert temp 
-    document.getElementById('fahrenheit').addEventListener('click', ()=>{
-        document.getElementById('temp-degree').innerHTML = Math.floor((tempCelsius*9/5) + 32);
-    })
-    document.getElementById('celcius').addEventListener('click', ()=>{
-        document.getElementById('temp-degree').innerHTML = Math.floor(tempCelsius);
-    })
+
 
     const iconData = data.weather[0].main.toLowerCase();
     // console.log(iconData)
     switch (iconData) {
         case 'clouds':
-            document.querySelector('.result>i').innerHTML = `<i class="fa-solid fa-cloud"></i>`
+            document.querySelector('#temp-icon').innerHTML = `<i class="fa-solid fa-cloud result-size"></i>`
             // console.log(object);
+            // console.log(document.querySelector('.result>i').innerHTML);
             break;
         case 'rain':
-            document.querySelector('.result>i').innerHTML = `<i class="fa-solid fa-cloud-rain"></i>`
+            document.querySelector('#temp-icon').innerHTML = `<i class="fa-solid fa-cloud-rain result-size"></i>`
             break;
         case 'clear sky':
-            document.querySelector('.result>i').innerHTML = `<i class="fa-solid fa-sun"></i>`
+            document.querySelector('#temp-icon').innerHTML = `<i class="fa-solid fa-sun result-size"></i>`
             break;
         case 'thunderstorm':
-            document.querySelector('.result>i').innerHTML = `<i class="fa-solid fa-cloud-bolt"></i>`
+            document.querySelector('#temp-icon').innerHTML = `<i class="fa-solid fa-cloud-bolt result-size"></i>`
             break;
-            
-            default:
-            document.querySelector('.result>i').innerHTML = `<i class="fa-solid fa-cloud"></i>`
+
+        default:
+            document.querySelector('#temp-icon').innerHTML = `<i class="fa-solid fa-cloud result-size"></i>`
             break;
     }
 }
+
+//convert temp 
+document.getElementById('fahrenheit').addEventListener('click', () => {
+    if(!tempCelsius) {
+        document.getElementById('error-display').innerHTML = "Please search for a city first.";
+        document.getElementById('error-display').style.display = "block"; // Show error display if no temperature is available
+        return;
+    }
+    else{
+        document.getElementById('temp-degree').innerHTML = Math.floor((tempCelsius * 9 / 5) + 32);
+    }
+})
+document.getElementById('celcius').addEventListener('click', () => {
+     if(!tempCelsius) {
+        document.getElementById('error-display').innerHTML = "Please search for a city first.";
+        document.getElementById('error-display').classList.add('error-display');
+        document.getElementById('error-display').style.display = "block"; // Show error display if no temperature is available
+        return;
+    }
+    else{
+        document.getElementById('temp-degree').innerHTML = Math.floor(tempCelsius);
+    }
+})
+
+
 
 
 // <i class="fa-solid fa-cloud-rain"></i> rain
@@ -93,3 +123,11 @@ async function getWeather(lat, lon){
 // <i class="fa-solid fa-wind"></i> wind
 // <i class="fa-solid fa-temperature-half"></i> feels like
 // 
+
+
+  // Hide main content and show details when Details is clicked
+  document.getElementById('details-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('.main').style.display = 'none';
+    document.querySelector('.details').style.display = 'block';
+  });
