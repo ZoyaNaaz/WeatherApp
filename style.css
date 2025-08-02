@@ -58,6 +58,7 @@ a:hover{
     box-shadow:0 9px 16px rgba(0,0,0,0.15);
     background-color: #1A2A80;
 }
+
 .search{
     justify-content: center;
     gap: 20px;
@@ -78,6 +79,12 @@ a:hover{
     border: none;
     border-radius: 48%;
 }
+.error-display{
+    color: #fa9191;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 20px;
+}
 input:focus{
    border: none;
    outline: none;
@@ -92,11 +99,15 @@ input:focus{
     /* align-items: flex-start; */
     /* gap: 2px; Adjust spacing as needed */
 }
+
 .result-size{
     color: #e4e3ff;
-    font-size: 40px;
+    font-size: 25px;
     /* padding: 0 2px 0 0; Reduce right padding */
     /* line-height: 1; */
+}
+#temp-degree{
+  font-size: 35px;
 }
 #celcius, #fahrenheit{
     font-size: 20px;
@@ -107,6 +118,7 @@ input:focus{
     /* line-height: 1; */
     
 }
+
 #weather-p{
     font-size: 16px;
     text-align: right;
@@ -134,6 +146,15 @@ input:focus{
   text-align: center;
   font-size: 20px;
 }
+.shift-below {
+  position: relative;
+  margin-top: 60px; 
+}
+.shift-above{
+    /* position: relative; */
+    margin-top: 0px; 
+}
+/* other details */
 .other{
     margin: 90px 0 0 0;
     justify-content: space-around;
@@ -156,7 +177,7 @@ input:focus{
 /* footer */
 .footer{
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     width: 100vw;
     padding: 10px 0;
     background-color: #9896e8;
@@ -164,4 +185,57 @@ input:focus{
     font-size: large;
     font-weight: bold;
     text-align: center;
+}
+
+
+/* Responsive for tablets */
+@media (max-width: 768px) and (min-width: 481px) {
+    .main{
+        width: 50vw;
+        /* height: 80vh;
+        margin: 20px auto; */
+    }
+    .other {
+        margin: 20px 0;
+    }
+   
+}
+/* Responsive for mobile devices */
+@media (max-width: 480px) {
+    .main{
+        width: 90vw;
+        height: 90vh;
+        margin: 50px auto;
+    }
+    .other-details {
+        margin: -20px 0;
+    }
+    .footer{
+    position: absolute;
+    bottom: -20vh;
+    }
+
+}
+    
+.details {
+  display: none; /* Hide by default, show with JS */
+  background: #1A2A80;
+  color: #B2B0E8;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  margin: 40px auto 0 auto;
+  padding: 32px 24px;
+  max-width: 500px;
+  text-align: center;
+  font-size: 18px;
+}
+.details a {
+  color: #ffd43b;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.details a:hover {
+  color: #3B38A0;
+  
 }
